@@ -14,10 +14,11 @@ COPY yarn.lock .
 ENV YARN_CHECKSUM_BEHAVIOR=update
 
 # git
-RUN apt-get update && apt-get install -y git
+RUN apt-get update && apt-get install -y git build-essential python3-dev python3-setuptools python3-pip python-is-python3 libsqlite3-dev
 
 RUN npm install -g corepack && corepack enable
 RUN yarn set version 3.6.3
+ENV PYTHON=python3
 RUN yarn install
 
 # App
@@ -206,6 +207,9 @@ ENV CHOKIDAR_INTERVAL=5000
 
 # WAHA variables
 ENV WAHA_ZIPPER=ZIPUNZIP
+
+# Declare volumes
+VOLUME /app/.sessions /app/.media
 
 # Run command, etc
 EXPOSE 3000
